@@ -1,7 +1,6 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
-
 import connectDB from "./mongodb/connect.js";
 import userRouter from "./routes/user.routes.js";
 import propertyRouter from "./routes/property.routes.js";
@@ -19,12 +18,14 @@ app.get("/", (req, res) => {
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/properties", propertyRouter);
 
+const PORT = process.env.PORT || 8000;
+
 const startServer = async () => {
     try {
         connectDB(process.env.MONGODB_URI);
 
-        app.listen(8000, () =>
-            console.log("Server started on port http://localhost:8000"),
+        app.listen(PORT, () =>
+            console.log(`Server started on port http://localhost:${PORT}`),
         );
     } catch (error) {
         console.log(error);
